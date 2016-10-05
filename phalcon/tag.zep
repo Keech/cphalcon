@@ -925,6 +925,7 @@ class Tag
 	public static function textArea(var parameters) -> string
 	{
 		var params, id, name, content, code;
+		let escaper = <EscaperInterface> self::getEscaper(attributes);
 
 		if typeof parameters != "array" {
 			let params = [parameters];
@@ -960,7 +961,7 @@ class Tag
 		}
 
 		let code = self::renderAttributes("<textarea", params),
-			code .= ">" . content . "</textarea>";
+			code .= ">" . escaper->escapeHtmlAttr(content) . "</textarea>";
 
 		return code;
 	}
